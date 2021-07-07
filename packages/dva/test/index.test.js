@@ -1,6 +1,14 @@
 import expect from 'expect';
 import React from 'react';
-import dva from '../src/index';
+import dva, {
+  useDispatch,
+  useSelector,
+  useStore,
+  useHistory,
+  useLocation,
+  useParams,
+  useRouteMatch,
+} from '../src/index';
 
 const countModel = {
   namespace: 'count',
@@ -88,11 +96,7 @@ describe('index', () => {
 
   it('opts.extraEnhancers', () => {
     let count = 0;
-    const countEnhancer = storeCreator => (
-      reducer,
-      preloadedState,
-      enhancer
-    ) => {
+    const countEnhancer = storeCreator => (reducer, preloadedState, enhancer) => {
       const store = storeCreator(reducer, preloadedState, enhancer);
       const oldDispatch = store.dispatch;
       store.dispatch = action => {
@@ -133,5 +137,13 @@ describe('index', () => {
 
     app._store.dispatch({ type: 'count/add' });
     expect(savedState.count).toEqual(1);
+  });
+
+  it('hooks should not be undifined', () => {
+    [useSelector, useDispatch, useStore, useHistory, useLocation, useParams, useRouteMatch].forEach(
+      hook => {
+        expect(hook !== undefined).toEqual(true);
+      },
+    );
   });
 });

@@ -47,7 +47,7 @@ function RouterConfig({ history, app }) {
 
 从业务场景来说，有不少场景是可以做全局model的，比如说，我们在路由之间前进后退，model可以用于在路由间共享数据，比较典型的，像列表页和详情页的互相跳转，就可以用同一份model去共享它们的数据。
 
-注意，如果当前应用中加载了不止一个model，在其中一个的effect里面做select操作，是可以获取另外一个中的state的：
+注意，如果当前应用中加载了不止一个model，在其中一个的effect里面做select操作，是可以获取另外一个model中的state的：
 
 ```JavaScript
 *foo(action, { select }) {
@@ -244,10 +244,10 @@ function* saga() {
 如果想要让任务并行执行，可以通过下面这种方式：
 
 ```JavaScript
-const [result1, result2]  = yield [
+const [result1, result2]  = yield all([
   call(service1, param1),
   call(service2, param2)
-]
+])
 ```
 
 把多个要并行执行的东西放在一个数组里，就可以并行执行，等所有的都结束之后，进入下个环节，类似promise.all的操作。一般有一些集成界面，比如dashboard，其中各组件之间业务关联较小，就可以用这种方式去分别加载数据，此时，整体加载时间只取决于时间最长的那个。

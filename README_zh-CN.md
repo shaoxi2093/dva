@@ -2,6 +2,8 @@
 
 # dva
 
+[![codecov](https://codecov.io/gh/dvajs/dva/branch/master/graph/badge.svg)](https://codecov.io/gh/dvajs/dva)
+[![CircleCI](https://circleci.com/gh/dvajs/dva.svg?style=svg)](https://circleci.com/gh/dvajs/dva)
 [![NPM version](https://img.shields.io/npm/v/dva.svg?style=flat)](https://npmjs.org/package/dva)
 [![Build Status](https://img.shields.io/travis/dvajs/dva.svg?style=flat)](https://travis-ci.org/dvajs/dva)
 [![Coverage Status](https://img.shields.io/coveralls/dvajs/dva.svg?style=flat)](https://coveralls.io/r/dvajs/dva)
@@ -49,7 +51,7 @@
 
 > D.Va拥有一部强大的机甲，它具有两台全自动的近距离聚变机炮、可以使机甲飞跃敌人或障碍物的推进器、 还有可以抵御来自正面的远程攻击的防御矩阵。
 
-—— 来自 [守望先锋](http://ow.blizzard.cn/heroes/dva) 。
+—— 来自 [守望先锋](http://ow.blizzard.cn/heroes/overwatch-dva) 。
 
 <img src="https://zos.alipayobjects.com/rmsportal/psagSCVHOKQVqqNjjMdf.jpg" width="200" height="200" />
 
@@ -79,15 +81,9 @@
 
 ## 社区
 
-### 微信群
-
-<img src="https://gw.alipayobjects.com/zos/rmsportal/QwuMhmBXFuAqYvzktiGk.png" width="60" />
-
-注：群满 100 人后，可加 `sorryccpro` 备注 `dva` 邀请加入。
-
-### Telegram
-
-[https://t.me/joinchat/G0DdHw9tDZC-_NmdKY2jYg](https://t.me/joinchat/G0DdHw9tDZC-_NmdKY2jYg)
+| Slack Group                                                  | Github Issue                                            | 钉钉群                                                       | 微信群                                                       |
+| ------------------------------------------------------------ | ------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [sorrycc.slack.com](https://join.slack.com/t/sorrycc/shared_invite/enQtNTUzMTYxNDQ5MzE4LTg1NjEzYWUwNDQzMWU3YjViYjcyM2RkZDdjMzE0NzIxMTg3MzIwMDM2YjUwNTZkNDdhNTY5ZTlhYzc1Nzk2NzI) | [umijs/umi/issues](https://github.com/umijs/umi/issues) | <img src="https://gw.alipayobjects.com/zos/rmsportal/jPXcQOlGLnylGMfrKdBz.jpg" width="60" /> | <img src="https://img.alicdn.com/tfs/TB13U6aF6DpK1RjSZFrXXa78VXa-752-974.jpg" width="60" /> |
 
 ## License
 

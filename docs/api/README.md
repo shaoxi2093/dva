@@ -206,6 +206,14 @@ persistStore(app._store);
 
 取消 model 注册，清理 reducers, effects 和 subscriptions。subscription 如果没有返回 unlisten 函数，使用 `app.unmodel` 会给予警告⚠️。
 
+### `app.replaceModel(model)`
+
+> 只在app.start()之后可用
+
+替换model为新model，清理旧model的reducers, effects 和 subscriptions，但会保留旧的state状态，对于HMR非常有用。subscription 如果没有返回 unlisten 函数，使用 `app.unmodel` 会给予警告⚠️。 
+
+如果原来不存在相同namespace的model，那么执行`app.model`操作
+
 ### `app.router(({ history, app }) => RouterConfig)`
 
 注册路由表。
@@ -218,7 +226,7 @@ app.router(({ history }) => {
   return (
     <Router history={history}>
       <Route path="/" component={App} />
-    <Router>
+    </Router>
   );
 });
 ```
@@ -299,7 +307,7 @@ model 的命名空间，同时也是他在全局 state 上的属性，只能用�
 
 比如：
 
-```
+```js
 const app = dva({
   initialState: { count: 1 },
 });
@@ -331,6 +339,7 @@ type 类型有：
 * `takeLatest`
 * `throttle`
 * `watcher`
+* `poll`
 
 详见：https://github.com/dvajs/dva/blob/master/packages/dva-core/test/effects.test.js
 

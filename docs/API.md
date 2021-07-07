@@ -210,6 +210,14 @@ Register model, view [#Model](#model)  for details.
 
 Unregister model.
 
+### `app.replaceModel(model)`
+
+> Only available after `app.start()` got called
+
+Replace an existing model with a new one, comparing by the namespace. If no one matches, add the new one. 
+
+After called, old `reducers`, `effects`, `subscription` will be replaced with the new ones, while original state is kept, which means it's useful for HMR.
+
 ### `app.router(({ history, app }) => RouterConfig)`
 
 Register router config.
@@ -299,7 +307,7 @@ model's namespace.
 
 ### state
 
-models's initial state, it's priority is lower then `opts.initialState` in `dva()`.
+models's initial state, it's priority is lower than `opts.initialState` in `dva()`.
 
 e.g.
 
@@ -335,6 +343,7 @@ type includes:
 * `takeLatest`
 * `throttle`
 * `watcher`
+* `poll`
 
 View https://github.com/dvajs/dva/blob/master/packages/dva-core/test/effects.test.js for details.
 
@@ -344,4 +353,4 @@ Store subscriptions in key/value Object. Subscription is used for subscribing da
 
 `({ dispatch, history }, done) => unlistenFunction`
 
-Notice: if we want to unregister a model with `app.unmodel()`, it's subscriptions must return unsubscribe method.
+Notice: if we want to unregister a model with `app.unmodel()` or `app.replaceModel()`, it's subscriptions must return unsubscribe method.

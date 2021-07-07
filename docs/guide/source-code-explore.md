@@ -12,7 +12,7 @@
 
 package.json 里是这么写的：
 
-```
+```json
  "scripts": {
     "start": "roadhog server"
   },
@@ -27,7 +27,7 @@ package.json 里是这么写的：
 
 在 roadhog 的默认配置里有这么一条信息：
 
-```
+```json
 {
   "entry": "src/index.js",
 }
@@ -51,7 +51,7 @@ package.json 里是这么写的：
 
 5. 启动：app.start('#root');
 
-在这 6 步当中，dva 完成了 `使用 React 解决 view 层`、`redux 管理 model `、`saga 解决异步`的主要功能。事实上在我查阅资料以及回忆用过的脚手架时，发现目前端框架之所以被称为“框架”也就是解决了这些事情。前端工程师至今所做的事情都是在**分离动态的 data 和静态的 view **，只不过侧重点和实现方式也不同。
+在这 6 步当中，dva 完成了 `使用 React 解决 view 层`、`redux 管理 model `、`saga 解决异步`的主要功能。事实上在我查阅资料以及回忆用过的脚手架时，发现目前端框架之所以被称为“框架”也就是解决了这些事情。前端工程师至今所做的事情都是在 **分离动态的 data 和静态的 view** ，只不过侧重点和实现方式也不同。
 
 至今为止出了这么多框架，但是前端 MVX 的思想一直都没有改变。
 
@@ -69,7 +69,7 @@ package.json 里是这么写的：
 
 引用依赖很好的说明了 dva 的功能：统一 view 层。
 
-```
+```json
 // dva 使用的依赖如下：
 
     "babel-runtime": "^6.26.0", // 一个编译后文件引用的公共库，可以有效减少编译后的文件体积
@@ -86,7 +86,7 @@ package.json 里是这么写的：
 	
 ```
 不过 script 没有给太多有用的信息，因为 `ruban build` 中的 `ruban` 显然是个私人库(虽然在 tnpm 上可以查到但是也是私人库)。但根据惯例，应该是 dva 包下的 `index.js` 文件提供了对外调用：
-```
+```js
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -119,7 +119,7 @@ dva 中实现代理模式的方式如下：
 
 上代码:
 
-```
+```js
 export default function(opts = {}) {
 
   // ...初始化 route ，和添加 route 中间件的方法。
@@ -180,7 +180,7 @@ export default function(opts = {}) {
 
 不多说，上代码。
 
-```
+```js
 // 使用 querySelector 获得 dom
 if (isString(container)) {
   container = document.querySelector(container);
@@ -252,7 +252,7 @@ connect 也是一个代理模式实现的高阶组件，为被代理的组件实
 
 只放关键部分代码，因为我也只看懂了关键部分(捂脸跑)：
 
-```
+```js
 import connectAdvanced from '../components/connectAdvanced' 
 export function createConnect({
   connectHOC = connectAdvanced,
@@ -276,7 +276,7 @@ export function createConnect({
 export default createConnect() // 这是 connect 的本体，导出时即生成 connect 0
 
 ```
-```
+```js
 // hoist-non-react-statics，会自动把所有绑定在对象上的非React方法都绑定到新的对象上
 import hoistStatics from 'hoist-non-react-statics'
 // 1号 connect 的本体
@@ -330,7 +330,7 @@ redux 是状态管理的库，router 是(唯一)控制页面跳转的库。两�
 
 `react-router-redux` 是 redux 的一个中间件(中间件：JavaScript 代理模式的另一种实践 针对 dispatch 实现了方法的代理，在 dispatch action 的时候增加或者修改) ，主要作用是：
 
-> 加强了React Router库中history这个实例，以允许将history中接受到的变化反应到stae中去。
+> 加强了React Router库中history这个实例，以允许将history中接受到的变化反应到state中去。
 
 [github 在此](https://github.com/reactjs/react-router-redux)
 
@@ -349,7 +349,7 @@ subscriptions 中监听 router 变化。
 
 > subscriptions 的东西可以放在 dva-core 里再说，
 
-```
+```js
 import createHashHistory from 'history/createHashHistory';
 import {
   routerMiddleware,
@@ -407,7 +407,7 @@ function patchHistory(history) {
 
 > 剧透：redux 中创建 store 的方法为：
 
-```
+```js
 // combineReducers 接收的参数是对象
 // 所以 initialReducer 的类型是对象
 // 作用：将对象中所有的 reducer 组合成一个大的 reducer
@@ -455,7 +455,7 @@ const store = createStore(
 
 `dva-core` 的 `package.json` 中依赖包如下：
 
-```
+```json
     "babel-runtime": "^6.26.0",  // 一个编译后文件引用的公共库，可以有效减少编译后的文件体积
     "flatten": "^1.0.2", // 一个将多个数组值合并成一个数组的库
     "global": "^4.3.2",// 用于提供全局函数比如 document 的引用
@@ -476,7 +476,7 @@ const store = createStore(
 
 `dva-core` 的 `src/index.js` 里便是这个 app 对象的具体创建过程以及包含的方法：
 
-```
+```js
 export function create(hooksAndOpts = {}, createOpts = {}) {
   const {
     initialReducer,
@@ -518,7 +518,7 @@ export function create(hooksAndOpts = {}, createOpts = {}) {
 #### Plugin 与 plugin.use
 
 Plugin 与 plugin.use 都有使用数组的 reduce 方法的行为：
-```
+```js
 const hooks = [
   'onError',
   'onStateChange',
@@ -587,13 +587,13 @@ export default class Plugin {
 
 ## model 方法
 
-`model` 是 app 添加 model 的方法，在** dva 项目**的 index.js 是这么用的。
+`model` 是 app 添加 model 的方法，在 **dva 项目** 的 index.js 是这么用的。
 
 > app.model(require('./models/example'));
 
-在 `dva` 中没对 model 做任何处理，所以 `dva-core` 中的 model 就是 ** dva 项目**里调用的 model。
+在 `dva` 中没对 model 做任何处理，所以 `dva-core` 中的 model 就是 **dva 项目** 里调用的 model。
 
-```
+```js
   function model(m) {
     if (process.env.NODE_ENV !== 'production') {
       checkModel(m, app._models);
@@ -611,13 +611,13 @@ export default class Plugin {
 
 ## start 方法
 
-`start` 方法是 `dva-core` 的核心，在 `start` 方法里，dva 完成了** `store` 初始化** 以及 **`redux-saga` 的调用**。比起 `dva` 的 `start`，它引入了更多的调用方式。
+`start` 方法是 `dva-core` 的核心，在 `start` 方法里，dva 完成了 **`store` 初始化** 以及 **`redux-saga` 的调用**。比起 `dva` 的 `start`，它引入了更多的调用方式。
 
 一步一步分析：
 
 ### `onError`
 
-```
+```js
     const onError = (err) => {
       if (err) {
         if (typeof err === 'string') err = new Error(err);
@@ -634,7 +634,7 @@ export default class Plugin {
 
 看一下 `plugin.apply` 的实现：
 
-```
+```js
   apply(key, defaultHandler) {
     const hooks = this.hooks;
 	/* 通过 validApplyHooks 进行过滤， apply 方法只能应用在全局报错或者热更替上 */ 
@@ -679,7 +679,7 @@ export default class Plugin {
 
 于是：
 
-```
+```js
 	  const sagaMiddleware = createSagaMiddleware();
 	  // ...
       const sagas = [];
@@ -700,7 +700,7 @@ export default class Plugin {
 
 那么 sagas 是什么呢？
 
-```
+```js
     const {
       middleware: promiseMiddleware,
       resolve,
@@ -727,7 +727,7 @@ createPromiseMiddleware 的代码[在此](https://github.com/dvajs/dva/blob/mast
 
 `middleware` 是一个 redux 的中间件，即在不影响 redux 本身功能的情况下为其添加了新特性的代码。redux 的中间件通过拦截 action 来实现其作用的。
 
-```
+```js
   const middleware = () => next => (action) => {
     const { type } = action;
     if (isEffect(type)) {
@@ -741,7 +741,7 @@ createPromiseMiddleware 的代码[在此](https://github.com/dvajs/dva/blob/mast
   
     function isEffect(type) {
 		// dva 里 action 的 type 有固定格式： model.namespace/model.effects
-		// const [namespace] = type.split(NAMESPACE_SEP); 是 es6 结构的写法
+		// const [namespace] = type.split(NAMESPACE_SEP); 是 es6 解构的写法
 		// 等同于 const namespace = type.split(NAMESPACE_SEP)[0];
 		// NAMESPACE_SEP 的值是 `/`
     	const [namespace] = type.split(NAMESPACE_SEP);
@@ -772,7 +772,7 @@ bind 的作用是绑定新的对象，生成新函数是大家都知道概念。
 
 这段代码恰好就是 bind 的一种实践方式。
 
-```
+```js
   const map = {};
 
   const middleware = () => next => (action) => {
@@ -830,7 +830,7 @@ bind 的作用是绑定新的对象，生成新函数是大家都知道概念。
 
 [getSaga 源码](https://github.com/dvajs/dva/blob/master/packages/dva-core/src/getSaga.js)
 
-```
+```js
 export default function getSaga(resolve, reject, effects, model, onError, onEffect) {
   return function *() {
     for (const key in effects) {
@@ -851,13 +851,13 @@ export default function getSaga(resolve, reject, effects, model, onError, onEffe
 ```
 可以看到，`getSaga` 最终返回了一个 [generator 函数](http://www.ruanyifeng.com/blog/2015/04/generator.html)。
 
-在该函数遍历了** model 中 effects 属性**的所有方法（注：同样是 generator 函数）。结合 `index.js` 里的 ` for (const m of app._models)`，该遍历针对所有的 model。
+在该函数遍历了 **model 中 effects 属性** 的所有方法（注：同样是 generator 函数）。结合 `index.js` 里的 ` for (const m of app._models)`，该遍历针对所有的 model。
 
 对于每一个 effect，getSaga 生成了一个 watcher ，并使用 saga 函数的 **fork** 将该函数切分到另一个单独的线程中去（生成了一个 task 对象）。同时为了方便对该线程进行控制，在此 fork 了一个 generator 函数。在该函数中拦截了取消 effect 的 action（事实上，应该是卸载effect 所在 model 的 action），一旦监听到则立刻取消分出去的 task 线程。
 
 ##### getWatcher
 
-```
+```js
 function getWatcher(resolve, reject, key, _effect, model, onError, onEffect) {
   let effect = _effect;
   let type = 'takeEvery';
@@ -918,7 +918,7 @@ function applyOnEffect(fns, effect, model, key) {
 
 因为没有经过 effects 的属性是数组的情况，所以 `type` 的值是 `takeEvery`，也就是监听每一个发出的 action ，即 `getWatcher` 的返回值最终走的是 switch 的 default 选项:
 
-```
+```js
 function*() {
         yield takeEvery(key, sagaWithOnEffect);
       };
@@ -928,7 +928,7 @@ function*() {
 
 根据 `const sagaWithOnEffect = applyOnEffect(onEffect, sagaWithCatch, model, key);` 的执行情况，如果 onEffect 的插件为空的情况下，`sagaWithOnEffect` 的值为 `sagaWithCatch`。
 
-```
+```js
   function *sagaWithCatch(...args) {
     try {
       yield sagaEffects.put({ type: `${key}${NAMESPACE_SEP}@@start` });
@@ -962,7 +962,7 @@ function*() {
 正常情况的 redux 的 createStore 接收三个参数 reducer, initState,applyMiddleware(middlewares)。
 
 不过 dva 提供了自己的 `createStore` 方法，用来组织一系列自己创建的参数。
-```
+```js
     // Create store
     const store = app._store = createStore({ // eslint-disable-line
       reducers: createReducer(),
@@ -976,7 +976,7 @@ function*() {
 
 #### createReducer
 
-```
+```js
     function createReducer() {
       return reducerEnhancer(combineReducers({
         ...reducers,
@@ -988,7 +988,7 @@ function*() {
 
 `createReducer` 实际上是用 plugin 里的 onReducer (如果有)扩展了 reducer 功能，对于 `const reducerEnhancer = plugin.get('onReducer');`，plugin 里的相关代码为：
 
-```
+```js
 function getOnReducer(hook) {
   return function (reducer) {
     for (const reducerEnhancer of hook) {
@@ -1014,7 +1014,7 @@ combineReducers 中：
 现在我们有了一个 combine 过的 reducer，有了 core 中创建的 sagaMiddleware 和 promiseMiddleware，还有了从 dva 中传入的 createOpts，现在可以正式创建 store 了。
 
 > 从 dva 中传入的 createOpts 为 
-```
+```js
     setupMiddlewares(middlewares) {
       return [
         routerMiddleware(history),
@@ -1027,7 +1027,7 @@ combineReducers 中：
 
 虽然看起来很长，但是对于大多数普通用户来说，在未开启 redux 的调试插件，未传入额外的 onAction 以及 extraEnhancers 的情况下，上面的代码等价于:
 
-```
+```js
 import { createStore, applyMiddleware, compose } from 'redux';
 import flatten from 'flatten';
 import invariant from 'invariant';
@@ -1065,7 +1065,7 @@ export default function ({
 
 现在 dva 已经创建了 store，有了异步数据流加载方案，并且又做了一些其他的事情：
 
-```
+```js
     // Extend store
     store.runSaga = sagaMiddleware.run;
     store.asyncReducers = {};
@@ -1087,7 +1087,7 @@ export default function ({
 
 model 里的 state、effect、reducer 已经实现了，就缺最后的订阅 subscription 部分。
 
-```
+```js
     // Setup app
     setupApp(app);
 
@@ -1107,7 +1107,7 @@ setupApp(app) 是从 dva 里传过来的，主要是使用 patchHistory 函数�
 
 这是 runSubscription 的代码
 
-```
+```js
 export function run(subs, model, app, onError) {
   const funcs = [];
   const nonFuncs = [];
@@ -1140,7 +1140,7 @@ export function run(subs, model, app, onError) {
 
 3. 调用该 function，传入 dispatch 和 history 属性。history 就是经过 redux-router 强化过的 history，而 dispatch，也就是 `prefixedDispatch(app._store.dispatch, model)`
 
-```
+```js
 export default function prefixedDispatch(dispatch, model) {
   return (action) => {
 	// 断言检测
